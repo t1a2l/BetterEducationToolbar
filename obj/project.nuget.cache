@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "MYQoRn7iCRtFkjdZV7rMu1gMDNVmp3L+oCwO21dIM2eaFVd+HttMX2kXgqpgyBEMfhIFHLoVS4PU/BZyl/aZ0w==",
+  "success": true,
+  "projectFilePath": "E:\\Github\\BetterEducationToolbar\\BetterEducationToolbar.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\talrofeh\\.nuget\\packages\\citiesharmony.api\\2.0.0\\citiesharmony.api.2.0.0.nupkg.sha512",
+    "C:\\Users\\talrofeh\\.nuget\\packages\\citiesharmony.harmony\\2.0.4\\citiesharmony.harmony.2.0.4.nupkg.sha512"
+  ],
+  "logs": []
+}

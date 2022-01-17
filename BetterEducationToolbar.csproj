@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net35</TargetFramework>
+    <Deterministic>false</Deterministic>
+    <AssemblyTitle>BetterEducationToolbar</AssemblyTitle>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <LangVersion>preview</LangVersion>
+    <AssemblyName>BetterEducationToolbar</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+  <Target Name="DeployToModDirectory" AfterTargets="Build">
+    <PropertyGroup>
+      <ModDirectory>$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\</ModDirectory>
+    </PropertyGroup>
+    <ItemGroup>
+      <ModFiles Include="$(TargetDir)*.*" />
+    </ItemGroup>
+    <RemoveDir Directories="$(ModDirectory)" />
+    <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(ModDirectory)" />
+  </Target>
+  <ItemGroup>
+    <PackageReference Include="CitiesHarmony.API" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\References\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ColossalManaged">
+      <HintPath>..\..\References\ColossalManaged.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="ICities">
+      <HintPath>..\..\References\ICities.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
