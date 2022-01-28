@@ -11,10 +11,7 @@ namespace BetterEducationToolbar
     class CollectAssetsPatch
     {
 		[HarmonyPostfix]
-        public static void Postfix(GroupFilter filter,
-								   Comparison<GroupInfo > comparison,
-								   ref PoolList<GroupInfo> __result,
-								   GeneratedGroupPanel __instance)
+        public static void Postfix(GroupFilter filter, Comparison<GroupInfo > comparison, ref PoolList<GroupInfo> __result, GeneratedGroupPanel __instance)
         {
 			if (!filter.IsFlagSet(GroupFilter.Building) ||
 				__instance.service != ItemClass.Service.Education ||
