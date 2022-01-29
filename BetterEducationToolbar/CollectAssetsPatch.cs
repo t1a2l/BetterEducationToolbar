@@ -29,7 +29,7 @@ namespace BetterEducationToolbar
 			{
 				BuildingInfo info = PrefabCollection<BuildingInfo>.GetLoaded(i);
 				if (info != null &&
-					info.GetService() == ItemClass.Service.Education &&
+					info.GetService() == ItemClass.Service.Education ||  info.GetService() == ItemClass.Service.PlayerEducation &&
 					(!toolManagerExists || info.m_availableIn.IsFlagSet(Singleton<ToolManager>.instance.m_properties.m_mode)) &&
 					info.m_placementStyle == ItemClass.Placement.Manual)
 				{
