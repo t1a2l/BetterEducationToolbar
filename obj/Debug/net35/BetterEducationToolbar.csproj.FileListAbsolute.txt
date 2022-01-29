@@ -8,3 +8,4 @@ E:\Github\BetterEducationToolbar\obj\Debug\net35\BetterEducationToolbar.csproj.C
 E:\Github\BetterEducationToolbar\obj\Debug\net35\BetterEducationToolbar.csproj.CopyComplete
 E:\Github\BetterEducationToolbar\obj\Debug\net35\BetterEducationToolbar.dll
 E:\Github\BetterEducationToolbar\obj\Debug\net35\BetterEducationToolbar.pdb
+E:\Github\BetterEducationToolbar\obj\Debug\net35\BetterEducationToolbar.csproj.AssemblyReference.cache
