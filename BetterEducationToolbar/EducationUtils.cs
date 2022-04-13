@@ -9,8 +9,8 @@ namespace BetterEducationToolbar
 	{
 		Elementary,
 		HighSchool,
-		University,
-		Library
+		Library,
+		University
 	}
 
 	static class EducationUtils
@@ -23,12 +23,6 @@ namespace BetterEducationToolbar
 			{
 				case "EducationDefault":
 				case "MonumentModderPack":
-				case "MonumentCategory1":
-				case "MonumentCategory2":
-				case "MonumentCategory3":
-				case "MonumentCategory4":
-				case "MonumentCategory5":
-				case "MonumentCategory6":
 					return true;
 				default:
 					return false;

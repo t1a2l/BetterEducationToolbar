@@ -13,23 +13,34 @@ namespace BetterEducationToolbar
 		[HarmonyPostfix]
         public static void Postfix(GroupFilter filter, Comparison<GroupInfo > comparison, ref PoolList<GroupInfo> __result, GeneratedGroupPanel __instance)
         {
-			if (!filter.IsFlagSet(GroupFilter.Building) ||
-				__instance.service != ItemClass.Service.Education ||
+			if (!filter.IsFlagSet(GroupFilter.Building) || __instance.service != ItemClass.Service.Education ||
 				!Mod.IsInGame() )
 			{
 				return;
 			}
 
+			// Campus DLC tabs and custom modded tabs
+			var miscTabs = new List<GroupInfo>();
+			foreach(var group in __result)
+            {
+				if (!EducationUtils.IsEducationCategory(group.name))
+                {
+					miscTabs.Add(group);
+                }
+            }
+
 			__result.Clear();
 
 			var educationCategoriesNeeded = new List<EducationCategory>();
+			var miscCategoriesNeeded = new List<string>();
+
 			var toolManagerExists = Singleton<ToolManager>.exists;
 
 			for (uint i = 0u; i < PrefabCollection<BuildingInfo>.LoadedCount(); ++i)
 			{
 				BuildingInfo info = PrefabCollection<BuildingInfo>.GetLoaded(i);
 				if (info != null &&
-					info.GetService() == ItemClass.Service.Education ||  info.GetService() == ItemClass.Service.PlayerEducation &&
+					info.GetService() == ItemClass.Service.Education || info.GetService() == ItemClass.Service.PlayerEducation &&
 					(!toolManagerExists || info.m_availableIn.IsFlagSet(Singleton<ToolManager>.instance.m_properties.m_mode)) &&
 					info.m_placementStyle == ItemClass.Placement.Manual)
 				{
@@ -55,6 +66,12 @@ namespace BetterEducationToolbar
 			foreach (var cat in educationCategoriesNeeded)
             {
 				__result.Add(EducationUtils.CreateEducationGroup(cat));
+            }
+
+			// add campus tabs
+			foreach(var miscTab in miscTabs)
+            {
+				__result.Add(miscTab);
             }
 		}
     }
