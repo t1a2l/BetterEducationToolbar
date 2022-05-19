@@ -1,7 +1,7 @@
 ﻿using ColossalFramework;
 using HarmonyLib;
-using System;
 using System.Collections.Generic;
+using System.Reflection;
 using static GeneratedGroupPanel;
 
 namespace BetterEducationToolbar
@@ -10,27 +10,18 @@ namespace BetterEducationToolbar
 	[HarmonyPatch(typeof(GeneratedGroupPanel))]
     class GeneratedGroupPanelPatch
     {
-		[HarmonyPatch(typeof(GeneratedGroupPanel), "CollectAssets")]
-		[HarmonyPostfix]
-        public static void Postfix(GroupFilter filter, Comparison<GroupInfo > comparison, ref PoolList<GroupInfo> __result, GeneratedGroupPanel __instance)
-        {
-			if (!filter.IsFlagSet(GroupFilter.Building) || __instance.service != ItemClass.Service.Education ||	!Mod.IsInGame())
-			{
-				return;
-			}
+		
+		private delegate void CreateGroupItemDelegate(GeneratedGroupPanel instance, GroupInfo info, string localeID);
+        private static CreateGroupItemDelegate BaseCreateGroupItem = AccessTools.MethodDelegate<CreateGroupItemDelegate>(typeof(GeneratedGroupPanel).GetMethod("CreateGroupItem", BindingFlags.Instance | BindingFlags.NonPublic), null, false);
 
-			// Campus DLC tabs and custom modded tabs
-			var miscTabs = new List<GroupInfo>();
-			foreach(var group in __result)
-            {
-				if (!EducationUtils.IsEducationCategory(group.name))
-                {
-					miscTabs.Add(group);
-                }
-            }
+		private delegate int GetCategoryOrderDelegate(EducationGroupPanel instance, string name);
+        private static GetCategoryOrderDelegate GetCategoryOrder = AccessTools.MethodDelegate<GetCategoryOrderDelegate>(typeof(EducationGroupPanel).GetMethod("GetCategoryOrder", BindingFlags.Instance | BindingFlags.NonPublic), null, false);
 
-			__result.Clear();
 
+		[HarmonyPatch(typeof(EducationGroupPanel), "CustomRefreshPanel")]
+		[HarmonyPrefix]
+		public static bool CustomRefreshPanel(EducationGroupPanel __instance, ref bool _result)
+		{
 			var educationCategoriesNeeded = new List<EducationCategory>();
 
 			var toolManagerExists = Singleton<ToolManager>.exists;
@@ -62,30 +53,20 @@ namespace BetterEducationToolbar
 			// Re-create tabs
 			foreach (var cat in educationCategoriesNeeded)
             {
-				__result.Add(EducationUtils.CreateEducationGroup(cat));
+				BaseCreateGroupItem(__instance, EducationUtils.CreateEducationGroup(cat), "MAIN_CATEGORY");
             }
 
-			// add campus tabs
-			foreach(var miscTab in miscTabs)
-            {
-				__result.Add(miscTab);
-            }
-		}
-    
-		
-		[HarmonyPatch(typeof(GeneratedGroupPanel), "RefreshPanel")]
-		[HarmonyPrefix]
-		public static bool RefreshPanel(GeneratedGroupPanel __instance)
-		{
-			if(__instance.service == ItemClass.Service.Education)
-            {
-				__instance.PopulateGroups(__instance.groupFilter, __instance.sortingMethod);
-				return false;
-            } 
-			else
-            {
-				return true;
-            }
+			if (SteamHelper.IsDLCOwned(SteamHelper.DLC.CampusDLC))
+			{
+				BaseCreateGroupItem(__instance, new EducationGroupPanel.PTGroupInfo("CampusAreaTradeSchool", GetCategoryOrder(__instance, "CampusAreaTradeSchool"), UnlockManager.Feature.CampusAreas, "Education"), "MAIN_CATEGORY");
+				BaseCreateGroupItem(__instance, new EducationGroupPanel.PTGroupInfo("CampusAreaLiberalArts", GetCategoryOrder(__instance, "CampusAreaLiberalArts"), UnlockManager.Feature.CampusAreasLiberalArts, "Education"), "MAIN_CATEGORY");
+				BaseCreateGroupItem(__instance, new EducationGroupPanel.PTGroupInfo("CampusAreaUniversity", GetCategoryOrder(__instance, "CampusAreaUniversity"), UnlockManager.Feature.CampusAreasUniversity, "Education"), "MAIN_CATEGORY");
+				BaseCreateGroupItem(__instance, new EducationGroupPanel.PTGroupInfo("CampusAreaVarsitySports", GetCategoryOrder(__instance, "CampusAreaVarsitySports"), UnlockManager.Feature.CampusAreas, "Education"), "MAIN_CATEGORY");
+				BaseCreateGroupItem(__instance, new EducationGroupPanel.PTGroupInfo("CampusAreaMuseums", GetCategoryOrder(__instance, "CampusAreaMuseums"), UnlockManager.Feature.CampusAreas, "Education"), "MAIN_CATEGORY");
+			}
+
+			_result = true;
+			return false;
 		}
 
 	}
