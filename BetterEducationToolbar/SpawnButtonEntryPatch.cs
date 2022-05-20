@@ -5,15 +5,11 @@ using UnityEngine;
 
 namespace BetterEducationToolbar
 {
-    [HarmonyPatch(typeof(GeneratedGroupPanel), "PopulateGroups", new Type[]
-	{
-		typeof(GeneratedGroupPanel.GroupFilter),
-		typeof(Comparison<GeneratedGroupPanel.GroupInfo>)
-	})]
+    [HarmonyPatch(typeof(GeneratedGroupPanel), "CreateGroupItem")]
 	internal class SpawnButtonEntryPatch
 	{
 		[HarmonyPostfix]
-		public static void Postfix(GeneratedGroupPanel.GroupFilter filter, Comparison<GeneratedGroupPanel.GroupInfo> comparison, GeneratedGroupPanel __instance, UITabstrip ___m_Strip)
+		public static void Postfix(GeneratedGroupPanel __instance, GeneratedGroupPanel.GroupInfo info, string localeID, UITabstrip ___m_Strip)
 		{
 			if (!(__instance is EducationGroupPanel) || !Mod.IsInGame())
 			{
@@ -22,26 +18,26 @@ namespace BetterEducationToolbar
 			}
 			string mainCategoryId = "MAIN_CATEGORY";
 			var SpriteNames = new string[] {
-				"LibraryBase",
-				"LibraryDisabled",
-				"LibraryFocused",
-				"LibraryHovered",
-				"LibraryPressed",
-				"HighSchoolBase",
-				"HighSchoolDisabled",
-				"HighSchoolFocused",
-				"HighSchoolHovered",
-				"HighSchoolPressed",
-				"UniversityBase",
-				"UniversityDisabled",
-				"UniversityFocused",
-				"UniversityHovered",
-				"UniversityPressed",
 				"ElementaryBase",
 				"ElementaryDisabled",
 				"ElementaryFocused",
 				"ElementaryHovered",
 				"ElementaryPressed",
+				"HighSchoolBase",
+				"HighSchoolDisabled",
+				"HighSchoolFocused",
+				"HighSchoolHovered",
+				"HighSchoolPressed",
+				"LibraryBase",
+				"LibraryDisabled",
+				"LibraryFocused",
+				"LibraryHovered",
+				"LibraryPressed",
+				"UniversityBase",
+				"UniversityDisabled",
+				"UniversityFocused",
+				"UniversityHovered",
+				"UniversityPressed",
 				"SubBarButtonBase",
 				"SubBarButtonBaseDisabled",
 				"SubBarButtonBaseFocused",
@@ -51,14 +47,14 @@ namespace BetterEducationToolbar
 			if(TextureUtils.GetAtlas("EducationAtlas") == null)
             {
 				TextureUtils.InitialiseAtlas("EducationAtlas");
-				for(int i = 0; i < 25; i++)
+				for(int i = 0; i < 20; i++)
 				{
 					TextureUtils.AddSpriteToAtlas(new Rect(32 * i, 0, 32, 25), SpriteNames[i], "EducationAtlas");
 				}
 
-				for(int i = 25; i < SpriteNames.Length; i++)
+				for(int i = 20; i < SpriteNames.Length; i++)
 				{
-					TextureUtils.AddSpriteToAtlas(new Rect(58 * i - 650, 0, 58, 25), SpriteNames[i], "EducationAtlas");
+					TextureUtils.AddSpriteToAtlas(new Rect(58 * i - 520, 0, 58, 25), SpriteNames[i], "EducationAtlas");
 				}
             }
 			foreach (UIComponent tab in ___m_Strip.tabs)

@@ -58,18 +58,18 @@ namespace BetterEducationToolbar
 					button.pressedFgSprite ="HighSchoolPressed";
 					break;
 				case EducationCategory.Library:
-					button.normalFgSprite = "LibrariesBase";
-					button.disabledFgSprite = "LibrariesDisabled";
-					button.focusedFgSprite = "LibrariesFocused";
-					button.hoveredFgSprite = "LibrariesHovered";
-					button.pressedFgSprite ="LibrariesPressed";					
+					button.normalFgSprite = "LibraryBase";
+					button.disabledFgSprite = "LibraryDisabled";
+					button.focusedFgSprite = "LibraryFocused";
+					button.hoveredFgSprite = "LibraryHovered";
+					button.pressedFgSprite ="LibraryPressed";					
 					break;
 				case EducationCategory.University:
-					button.normalFgSprite = "UniversitiesBase";
-					button.disabledFgSprite = "UniversitiesDisabled";
-					button.focusedFgSprite = "UniversitiesFocused";
-					button.hoveredFgSprite = "UniversitiesHovered";
-					button.pressedFgSprite ="UniversitiesPressed";					
+					button.normalFgSprite = "UniversityBase";
+					button.disabledFgSprite = "UniversityDisabled";
+					button.focusedFgSprite = "UniversityFocused";
+					button.hoveredFgSprite = "UniversityHovered";
+					button.pressedFgSprite ="UniversityPressed";					
 					break;
 				default:
 					break;

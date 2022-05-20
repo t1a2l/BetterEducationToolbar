@@ -20,7 +20,7 @@ namespace BetterEducationToolbar
 
 		[HarmonyPatch(typeof(EducationGroupPanel), "CustomRefreshPanel")]
 		[HarmonyPrefix]
-		public static bool CustomRefreshPanel(EducationGroupPanel __instance, ref bool _result)
+		public static bool CustomRefreshPanel(EducationGroupPanel __instance, ref bool __result)
 		{
 			var educationCategoriesNeeded = new List<EducationCategory>();
 
@@ -65,13 +65,11 @@ namespace BetterEducationToolbar
 				BaseCreateGroupItem(__instance, new EducationGroupPanel.PTGroupInfo("CampusAreaMuseums", GetCategoryOrder(__instance, "CampusAreaMuseums"), UnlockManager.Feature.CampusAreas, "Education"), "MAIN_CATEGORY");
 			}
 
-			_result = true;
+			__result = true;
 			return false;
 		}
 
 	}
 
-
-	
-
 }
+
