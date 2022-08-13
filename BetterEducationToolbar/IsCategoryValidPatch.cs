@@ -12,31 +12,22 @@ namespace BetterEducationToolbar
 		{
 			if(ignore || !(__instance is EducationPanel) || !Mod.IsInGame() || !info)
 			{
-				__result = false;
 				return;
 			}
 
 			if (!EducationUtils.IsEducationCategory(info.category))
 			{
-				__result = false;
 				return;
 			}
 
 			var cat = EducationUtils.GetEducationCategory(info);
 			if (!cat.HasValue)
 			{
-				__result = false;
-				return;
-			}
-			
-			var group = EducationUtils.CreateEducationGroup(cat.Value);
-			if (group.name != ___m_Category)
-			{
-				__result = false;
 				return;
 			}
 
-			__result = true;
+			var group = EducationUtils.CreateEducationGroup(cat.Value);
+			__result = group.name == ___m_Category;
 		}
 	}
 }
