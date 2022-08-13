@@ -10,37 +10,33 @@ namespace BetterEducationToolbar
 		[HarmonyPostfix]
 		public static void Postfix(BuildingInfo info, bool ignore, GeneratedScrollPanel __instance, ref bool __result, ref string ___m_Category)
 		{
-			if(ignore || !(__instance is EducationPanel) || !Mod.IsInGame())
-            {
+			if(ignore || !(__instance is EducationPanel) || !Mod.IsInGame() || !info)
+			{
+				__result = false;
 				return;
-            }
-
-			var buildingInfo = info;
-
-			if (!buildingInfo)
-            {
-				return;
-            }
+			}
 
 			if (!EducationUtils.IsEducationCategory(info.category))
 			{
+				__result = false;
 				return;
 			}
 
-			var cats = EducationUtils.GetEducationCategories(info);
-
-			foreach (var cat in cats)
+			var cat = EducationUtils.GetEducationCategory(info);
+			if (!cat.HasValue)
 			{
-				var group = EducationUtils.CreateEducationGroup(cat);
-
-				if (group.name == ___m_Category)
-                {
-					__result = true;
-					return;
-                }
+				__result = false;
+				return;
+			}
+			
+			var group = EducationUtils.CreateEducationGroup(cat.Value);
+			if (group.name != ___m_Category)
+			{
+				__result = false;
+				return;
 			}
 
-			__result = false;
+			__result = true;
 		}
 	}
 }

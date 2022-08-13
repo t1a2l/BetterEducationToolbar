@@ -2,7 +2,6 @@
 using ColossalFramework.UI;
 using UnityEngine;
 
-
 namespace BetterEducationToolbar
 {
 	enum EducationCategory
@@ -10,7 +9,7 @@ namespace BetterEducationToolbar
 		Elementary,
 		HighSchool,
 		Library,
-		University
+		University,
 	}
 
 	static class EducationUtils
@@ -98,34 +97,32 @@ namespace BetterEducationToolbar
 		{
 			string identifier = Mod.Identifier;
 			int num = (int)educationType;
-			return new GeneratedGroupPanel.GroupInfo(identifier + num.ToString(), (int)educationType);
+			return new GeneratedGroupPanel.GroupInfo(identifier + num, (int)educationType);
 		}
 
-		public static List<EducationCategory> GetEducationCategories(BuildingInfo info)
+		public static EducationCategory? GetEducationCategory(BuildingInfo info)
 		{
-			var cats = new List<EducationCategory>();
+			if (info.m_buildingAI is SchoolAI)
+			{
+				switch (info.m_class.m_level)
+				{
+					case ItemClass.Level.Level1:
+						return EducationCategory.Elementary;
+					case ItemClass.Level.Level2:
+						return EducationCategory.HighSchool;
+					case ItemClass.Level.Level3:
+						return EducationCategory.University;
+					default:
+						return null;
+				}
+			}
+			
+			if (info.m_buildingAI is LibraryAI)
+			{
+				return EducationCategory.Library;
+			}
 
-            if (info.m_buildingAI is SchoolAI && info.m_class.m_level == ItemClass.Level.Level1)
-            {
-				cats.Add(EducationCategory.Elementary);
-				return cats;
-            }
-			if(info.m_buildingAI is SchoolAI && info.m_class.m_level == ItemClass.Level.Level2)
-            {
-				cats.Add(EducationCategory.HighSchool);
-				return cats;
-            }
-			if(info.m_buildingAI is SchoolAI && info.m_class.m_level == ItemClass.Level.Level3)
-            {
-				cats.Add(EducationCategory.University);
-				return cats;
-            }
-			if(info.m_buildingAI is LibraryAI)
-            {
-				cats.Add(EducationCategory.Library);
-				return cats;
-            }
-			return cats;
+			return null;
 		}
 	}
 }
