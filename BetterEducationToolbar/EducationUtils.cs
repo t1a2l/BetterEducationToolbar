@@ -8,7 +8,7 @@ namespace BetterEducationToolbar
 		Elementary,
 		HighSchool,
 		Library,
-		University,
+		University
 	}
 
 	static class EducationUtils
@@ -79,11 +79,11 @@ namespace BetterEducationToolbar
 			switch (cat)
 			{
 				case EducationCategory.Elementary:
-					return "Elementary - A school for primary education of children who are four to eleven years of age (and sometimes up to thirteen years of age). It typically comes after preschool and before secondary school.";
+					return "Elementary - A school for primary education of children. It typically comes after preschool and before secondary school.";
 				case EducationCategory.HighSchool:
-					return "HighSchool - An institution that provides secondary education. provide both lower secondary education (age 12 to 15) and upper secondary education (age 15 to 18)";
+					return "HighSchool - An institution that provides secondary education.";
 				case EducationCategory.Library:
-					return "Library - Provide quiet and conducive areas for studying, as well as common areas for group study and collaboration, and may provide public facilities for access to electronic resources";
+					return "Library - Provide quiet and conducive areas for studying, group study and collaboration, and electronic resources";
 				case EducationCategory.University:
 					return "University - An institution of higher (or tertiary) education and research which awards academic degrees in several academic disciplines";
 				default:
@@ -111,8 +111,6 @@ namespace BetterEducationToolbar
 						return EducationCategory.HighSchool;
 					case ItemClass.Level.Level3:
 						return EducationCategory.University;
-					default:
-						return null;
 				}
 			}
 			
