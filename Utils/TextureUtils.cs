@@ -12,7 +12,7 @@ namespace BetterEducationToolbar.Utils
 	internal static class TextureUtils
 	{
         internal static Dictionary<string, UITextureAtlas> m_atlasStore = [];
-        static string PATH => "BetterEducationToolbar.BetterEducationToolbar.Utils.Atlas.";
+        static string PATH => "BetterEducationToolbar.Utils.Atlas.";
         static string ModPath => GetPlugin().modPath;
         public static string FILE_PATH = ModPath;
         public static bool EmbededResources = true;
