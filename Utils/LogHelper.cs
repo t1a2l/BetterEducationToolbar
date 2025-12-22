@@ -1,5 +1,4 @@
-﻿
-namespace BetterEducationToolbar
+﻿namespace BetterEducationToolbar.Utils
 {
     internal static class LogHelper
     {

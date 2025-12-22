@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Reflection;
 using static GeneratedGroupPanel;
 
-namespace BetterEducationToolbar
+namespace BetterEducationToolbar.Patches
 {
 	// This patch overrides the list of tabs that will be listed in the Education toolbar (not their contents!).
 	[HarmonyPatch(typeof(GeneratedGroupPanel))]
 	class GeneratedGroupPanelPatch
 	{
-		private static Action<GeneratedGroupPanel, GroupInfo, string> BaseCreateGroupItem = AccessTools
+		private static readonly Action<GeneratedGroupPanel, GroupInfo, string> BaseCreateGroupItem = AccessTools
 			.MethodDelegate<Action<GeneratedGroupPanel, GroupInfo, string>>(
 				typeof(GeneratedGroupPanel)
 					.GetMethod("CreateGroupItem", BindingFlags.Instance | BindingFlags.NonPublic), null, false);
 
-		private static Func<EducationGroupPanel, string, int> GetCategoryOrder = AccessTools
+		private static readonly Func<EducationGroupPanel, string, int> GetCategoryOrder = AccessTools
 			.MethodDelegate<Func<EducationGroupPanel, string, int>>(
 				typeof(EducationGroupPanel)
 					.GetMethod("GetCategoryOrder", BindingFlags.Instance | BindingFlags.NonPublic), null, false);

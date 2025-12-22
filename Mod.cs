@@ -1,6 +1,7 @@
 ﻿using ICities;
 using CitiesHarmony.API;
 using UnityEngine.SceneManagement;
+using BetterEducationToolbar.Utils;
 
 namespace BetterEducationToolbar
 {
@@ -10,11 +11,13 @@ namespace BetterEducationToolbar
 
         string IUserMod.Description => "Separate the Base Education Toolbar into four categories - Elementary, HighSchool, University and Library";
         
-        public void OnEnabled() {
+        public void OnEnabled() 
+        {
              HarmonyHelper.DoOnHarmonyReady(() => Patcher.PatchAll());
         }
 
-        public void OnDisabled() {
+        public void OnDisabled() 
+        {
             if (HarmonyHelper.IsHarmonyInstalled) Patcher.UnpatchAll();
         }
 

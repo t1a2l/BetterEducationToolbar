@@ -24,15 +24,15 @@
     <Copy SourceFiles="@(ModFiles)" DestinationFolder="$(ModDirectory)" />
   </Target>
   <ItemGroup>
-    <None Remove="BetterEducationToolbar\Utils\Atlas\EducationAtlas.png" />
+    <None Remove="Utils\Atlas\EducationAtlas.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BetterEducationToolbar\Utils\Atlas\EducationAtlas.png">
+    <EmbeddedResource Include="Utils\Atlas\EducationAtlas.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CitiesHarmony.API" Version="2.1.0" />
+    <PackageReference Include="CitiesHarmony.API" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">

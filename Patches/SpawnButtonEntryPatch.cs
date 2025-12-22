@@ -1,9 +1,10 @@
 ﻿using System;
+using BetterEducationToolbar.Utils;
 using ColossalFramework.UI;
 using HarmonyLib;
 using UnityEngine;
 
-namespace BetterEducationToolbar
+namespace BetterEducationToolbar.Patches
 {
     [HarmonyPatch(typeof(GeneratedGroupPanel), "CreateGroupItem")]
 	internal class SpawnButtonEntryPatch
@@ -11,7 +12,7 @@ namespace BetterEducationToolbar
 		[HarmonyPostfix]
 		public static void Postfix(GeneratedGroupPanel __instance, GeneratedGroupPanel.GroupInfo info, string localeID, UITabstrip ___m_Strip)
 		{
-			if (!(__instance is EducationGroupPanel) || !Mod.IsInGame())
+			if (__instance is not EducationGroupPanel || !Mod.IsInGame())
 			{
 				// We only want the "Education" main tab
 				return;

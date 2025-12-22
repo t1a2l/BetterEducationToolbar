@@ -1,7 +1,7 @@
 ﻿using ColossalFramework.UI;
 using UnityEngine;
 
-namespace BetterEducationToolbar
+namespace BetterEducationToolbar.Patches
 {
 	enum EducationCategory
 	{
@@ -17,14 +17,12 @@ namespace BetterEducationToolbar
 
 		public static bool IsEducationCategory(string cat)
 		{
-			switch (cat)
-			{
-				case "EducationDefault":
-				case "MonumentModderPack":
-					return true;
-				default:
-					return false;
-			};
+            return cat switch
+            {
+                "EducationDefault" or "MonumentModderPack" => true,
+                _ => false,
+            };
+            ;
 		}
 
 		public static UITextureAtlas GetAtlas(string name)
